@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--add another js-->
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-resource/angular-resource.js"></script>
+    <script src="node_modules/angular-route/angular-route.js"></script>
+    <script src="node_modules/js/config.js"></script>
+    <script src="node_modules/js/mahasiswa.js"></script>
+</head>
+<body ng-app="App" ng-controller="CtrlApp">
+    <div class="container">
+        <div class="container-fluid">
+                <div class="col-md-6 table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Active</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="jur in jurusans">
+                                <td>{{ $index +1 }}</td>
+                                <td>{{ jur.name }}</td>
+                                <td>{{ jur.active }}</td>
+                                <td>
+                                    <button ng-click="updateJurusan(jur)" class="btn btn-primary">update</button>
+                                    <button class="btn btn-danger">delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Active</th>
+                                <th>Option</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            <div class="col-md-4">
+                <form ng-submit="handleSave()">
+                    <div class="form-group">
+                        <label>Name :</label>
+                        <input type="text" class="form-control" ng-model="jurusan.name" placeholder="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Active :</label>
+                        <input type="text" class="form-control"
+                        ng-model="jurusan.active" placeholder="true/false">
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-defaul">
+                            save
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Jurusan</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="maha in mahasiswas">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ maha.name }}</td>
+                            <td>{{ maha.jurusan.name }}</td>
+                            <td>
+                                <button ng-click="updateInitMahasiswa(maha)" type="button" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Jurusan</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <form ng-submit="handleMahasiswaSubmit()">
+                    <div class="form-group">
+                        <label>Name :</label>
+                        <input type="text" ng-model="mahasiswa.name" class="form-control" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Jurusan :</label>
+                        <!--
+                        <input type="text" ng-model="mahasiswa.idjurusan"
+                        class="form-control" placeholder="Kode jurusan">
+                        -->
+                        <select class="form-control"
+                                ng-model="mahasiswa.idjurusan"
+                                ng-options="obj.idjurusan as obj.name for obj in jurusans">
+                            <option value="">--Choose One--</option>
+                        </select>
+                        <!--
+                        <br/>
+                        <input ng-model="mahasiswa.idjurusans"
+                               class="form-control">
+                               -->
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+
+</body>
+</html>
